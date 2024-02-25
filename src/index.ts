@@ -15,6 +15,8 @@ export const isset = (value: any): boolean => {
 export const empty = (value: any): boolean => {
   if (Array.isArray(value)) {
     return value.length === 0;
+  } else if (typeOf(value) === 'object') {
+    return Object.keys(value).length === 0;
   }
 
   return value === undefined || value === null || value === false || value === '' || value === 0;

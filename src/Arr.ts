@@ -46,9 +46,15 @@ export default class Arr {
 
   public range(start = 0, end: number | null = null, step = 1): this {
     let result = [];
-    if (end === null && start > 0) {
-      for (let i = 0; i < start; i++) {
-        result.push(i);
+    if (end === null) {
+      if (start > 0) {
+        for (let i = 0; i < start; i++) {
+          result.push(i + 1);
+        }
+      } else if (start < 0) {
+        for (let i = start; i < 0; i++) {
+          result.push(i);
+        }
       }
     } else if (end !== null) {
       if (end > start) {
