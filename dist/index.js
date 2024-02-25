@@ -21,6 +21,9 @@ const empty = (value) => {
     if (Array.isArray(value)) {
         return value.length === 0;
     }
+    else if ((0, exports.typeOf)(value) === 'object') {
+        return Object.keys(value).length === 0;
+    }
     return value === undefined || value === null || value === false || value === '' || value === 0;
 };
 exports.empty = empty;
