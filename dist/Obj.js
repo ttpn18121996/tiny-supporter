@@ -6,7 +6,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const _1 = require(".");
 const Str_1 = __importDefault(require("./Str"));
 const Obj = {
-    combine: (keys, values) => {
+    /**
+     * Combine a key list and a value list into one object.
+     * @param {string[]} keys List of keys to combine.
+     * @param {any[]} values List of values to combine.
+     * @returns {Object} A new object with specified properties derived from another object.
+     */
+    combine(keys, values) {
         if (keys.length < values.length) {
             for (let i = 0; i < values.length - keys.length; i++) {
                 keys.push(`key_${i}`);
@@ -17,7 +23,14 @@ const Obj = {
             [cur]: values?.[curIndex] ? values[curIndex] : null,
         }), {});
     },
-    get: (obj, keys, defaultValue = null) => {
+    /**
+     * Get an item from an array using "dot" notation.
+     * @param {Object} obj The object to get the item from.
+     * @param {string} keys String containing the path to the item, separated by a "dot".
+     * @param {any} defaultValue Default value returned if not found.
+     * @returns {any} The value of the specified property.
+     */
+    get(obj, keys, defaultValue = null) {
         let result = obj;
         keys.split('.').forEach(key => {
             result = result?.[key];
@@ -29,7 +42,13 @@ const Obj = {
         }
         return result;
     },
-    set: (obj, keys, value) => {
+    /**
+     * Set an object item to a given value using "dot" notation.
+     * @param {Object} obj The object to set the item from
+     * @param {string} keys String containing the path to the item, separated by a "dot"
+     * @param {any} value Value to set
+     */
+    set(obj, keys, value) {
         const keyList = keys.split('.');
         let currentObj = obj;
         for (let i = 0; i < keyList.length - 1; i++) {
@@ -41,18 +60,29 @@ const Obj = {
         }
         currentObj[keyList[keyList.length - 1]] = value;
     },
-    only: (obj, list) => {
+    /**
+     * Get a subset of the items from the given object.
+     * @param {Object} obj The object to get the item from
+     * @param {string|string[]} list List of keys to get
+     * @returns {Object}
+     */
+    only(obj, list) {
         if (!obj)
             return {};
         return Object.keys(obj).reduce((pre, cur) => {
-            if (((0, _1.typeOf)(list) === 'string' && cur === list)
-                || (Array.isArray(list) && list.includes(cur))) {
+            if (((0, _1.typeOf)(list) === 'string' && cur === list) || (Array.isArray(list) && list.includes(cur))) {
                 return { ...pre, [cur]: obj[cur] };
             }
             return { ...pre };
         }, {});
     },
-    except: (obj, list) => {
+    /**
+     * Get all of the given object except for a specified object of keys.
+     * @param {Object} obj The object to get the item from
+     * @param {string|string[]} list List of keys to ignore
+     * @returns {Object}
+     */
+    except(obj, list) {
         if (!obj)
             return {};
         return Object.keys(obj).reduce((pre, cur) => {
@@ -63,7 +93,13 @@ const Obj = {
             return { ...pre };
         }, {});
     },
-    map: (obj, callback) => {
+    /**
+     * Run a map over each of the properties in the object.
+     * @param {Object} obj The object to loop each property
+     * @param {Function} callback
+     * @returns {any[]}
+     */
+    map(obj, callback) {
         const result = [];
         if (!obj)
             return [];
@@ -72,7 +108,12 @@ const Obj = {
         }
         return result;
     },
-    toQueryString: (obj) => {
+    /**
+     * Convert an object to a query string with each property
+     * @param {Object} obj
+     * @returns {string}
+     */
+    toQueryString(obj) {
         const urlSearchParams = new URLSearchParams();
         for (const key in obj) {
             if (!(0, _1.isset)(obj[key])) {

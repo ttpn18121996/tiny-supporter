@@ -32,23 +32,23 @@ export declare const _arr: (value?: any[] | null) => Arr;
  * Object supporter.
  */
 export declare const _obj: {
-    combine: (keys: string[], values: any[]) => Object;
-    get: (obj: {
+    combine(keys: string[], values: any[]): Object;
+    get(obj: {
         [key: string]: any;
-    }, keys: string, defaultValue?: any) => any;
-    set: (obj: {
+    }, keys: string, defaultValue?: any): any;
+    set(obj: {
         [key: string]: any;
-    }, keys: string, value: any) => void;
-    only: (obj: {
+    }, keys: string, value: any): void;
+    only(obj: {
         [key: string]: any;
-    } | null, list: string | string[]) => Object;
-    except: (obj: {
+    } | null, list: string | string[]): Object;
+    except(obj: {
         [key: string]: any;
-    } | null, list: string | string[]) => Object;
-    map: (obj: {
+    } | null, list: string | string[]): Object;
+    map(obj: {
         [key: string]: any;
-    } | null, callback: (value: any, key: string) => {}) => any[];
-    toQueryString: (obj: {
+    } | null, callback: (value: any, key: string) => {}): any[];
+    toQueryString(obj: {
         [key: string]: any;
-    } | null) => string;
+    } | null): string;
 };

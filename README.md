@@ -243,6 +243,15 @@ console.log(_arr(data).supplement(5, 'additional item'),get()); // ['a', 'b', 'c
 
 ### _arr().toSelectOptions()
 
+The first parameter is an array with 2 elements,
+the first element is the name of the key that will be taken as the value of the option
+and the second element is the name of the key that will be taken as the label.
+
+The second parameter is an array with 2 elements,
+the first element is the name of the key that stores the value of the element retrieved by the key
+in the first parameter and the second element is the name of the key that stores the value of the element
+is obtained by the second key in the first parameter.
+
 ```js
 const users = [
   {
@@ -257,7 +266,8 @@ const users = [
   }
 ];
 
-console.log(_arr(users).toSelectOptions(['id', 'name'], ['value', 'label']));
+const options = _arr(users).toSelectOptions(['id', 'name'], ['value', 'label']);
+console.log(options);
 /*
 [
   {
@@ -270,6 +280,55 @@ console.log(_arr(users).toSelectOptions(['id', 'name'], ['value', 'label']));
   },
 ]
 */
+
+// Example for react component
+<select>
+  {options.map(option => (
+      <option value={option.value} key={option.value}>
+        {option.label}
+      </option>
+    )
+  )}
+</select>
+
+<Select options={options} />
+```
+
+In case the array elements are not an object.
+The element's index will be the value of the option, the element's value will be the label.
+
+```js
+const status = ['new', 'in process', 'done'];
+console.log(_arr(status).toSelectOptions());
+/*
+[
+  {
+    value: 0,
+    label: 'new',
+  },
+  {
+    value: 1,
+    label: 'in process',
+  },
+  {
+    value: 2,
+    label: 'done',
+  },
+]
+*/
+```
+
+### _arr().count()
+
+```js
+console.log(_arr([1, 2, 3]).count()); // 3
+```
+
+### _arr().isEmpty()
+
+```js
+console.log(_arr([]).isEmpty()); // true
+console.log(_arr([]).supplement(10).isEmpty()); // false
 ```
 
 ## _str()
@@ -491,6 +550,11 @@ console.log(empty(false)); // true
 console.log(empty(0)); // true
 console.log(empty([])); // true
 console.log(empty({})); // true
+console.log(empty({
+  items: [],
+  count() { return this.items.length; }
+})); // true
+console.log(empty({ isEmpty() { return true; } })); // true
 ```
 
 ### typeOf()
@@ -511,8 +575,8 @@ What makes this function different from typeof is:
 console.log(typeof []); // object
 console.log(typeOf([])); // array
 
-console.log(typeof (Array.from([]))); // object
-console.log(typeOf(Array.from([]))); // array
+console.log(typeof null); // object
+console.log(typeOf(null)); // null
 ```
 
 ```js

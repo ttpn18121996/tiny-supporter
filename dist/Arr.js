@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const _1 = require(".");
 class Arr {
     value;
     constructor(value) {
@@ -17,11 +18,21 @@ class Arr {
         }, []);
         return this;
     }
+    /**
+     * Returns the first element of the array.
+     * @returns {any} The first element of the array.
+     */
     first() {
         for (const item of this.value) {
             return item;
         }
     }
+    /**
+     * Run a map over each of the items in the array.
+     * @param {Function} callback Function execute for each element in the array.
+     * @returns {any[]} A new array populated with the results of calling
+     * a provided function on every element in the calling array.
+     */
     map(callback) {
         const values = Object.values(this.value);
         const keys = Object.keys(this.value);
@@ -31,12 +42,24 @@ class Arr {
         }
         return result;
     }
+    /**
+     * Pluck an array of values from an array.
+     * @param {string} key The key name needs to be taken from another array.
+     * @returns {Arr}
+     */
     pluck(key) {
         this.value = this.value
             .map((item) => (item instanceof Object ? item?.[key] : null))
             .filter((item) => item);
         return this;
     }
+    /**
+     * Creates an array of numbers processing from "start" up to "end" (including "end").
+     * @param {number} start The start of the range
+     * @param {number|null} end The end of the range.
+     * @param {number} step The value to increment or decrement by.
+     * @returns {Arr}
+     */
     range(start = 0, end = null, step = 1) {
         let result = [];
         if (end === null) {
@@ -66,27 +89,69 @@ class Arr {
         this.value = result;
         return this;
     }
+    /**
+     * Add elements to ensure the length of the array.
+     * @param {number} range Expected array length.
+     * @param value The value of the element will be added.
+     * @returns {Arr}
+     */
     supplement(range, value = null) {
         while (this.value.length < range) {
             this.value.push(value);
         }
         return this;
     }
+    /**
+     * Convert the array to an array of options of a selection.
+     * @param {string[]} keyValueEntries
+     * @param {string[]} optionKey
+     * @returns List of options.
+     */
     toSelectOptions(keyValueEntries = ['key', 'value'], optionKey = ['value', 'label']) {
         const result = [];
-        for (const item of this.value) {
-            result.push({
-                [optionKey[0]]: item[keyValueEntries[0]],
-                [optionKey[1]]: item[keyValueEntries[1]],
-            });
+        for (let i = 0; i < this.value.length; i++) {
+            if ((0, _1.typeOf)(this.value[i]) === 'object') {
+                result.push({
+                    [optionKey[0]]: this.value[i][keyValueEntries[0]],
+                    [optionKey[1]]: this.value[i][keyValueEntries[1]],
+                });
+            }
+            else {
+                result.push({
+                    [optionKey[0]]: i,
+                    [optionKey[1]]: this.value[i],
+                });
+            }
         }
         return result;
     }
+    /**
+     * Count the element of this array.
+     * @returns Total element.
+     */
+    count() {
+        return this.value.length;
+    }
+    /**
+     * Check for empty array.
+     * @returns This array is empty.
+     */
+    isEmpty() {
+        return this.count() === 0;
+    }
+    /**
+     * Gets the array value of this object.
+     * @returns An array value of this object.
+     */
     toArray() {
         return this.value instanceof Object
             ? Object.values(this.value)
             : this.value;
     }
+    /**
+     * The alias of the toArray method.
+     * @returns An array value of this object.
+     */
     get() {
         return this.toArray();
     }
