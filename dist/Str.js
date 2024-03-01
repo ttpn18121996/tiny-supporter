@@ -47,8 +47,7 @@ class Str {
             .join(search);
         return this;
     }
-    bind() {
-        const args = arguments;
+    bind(...args) {
         let valueBound = this.value;
         if (Array.isArray(args?.[0])) {
             for (let i = 0; i < args[0].length; i++) {

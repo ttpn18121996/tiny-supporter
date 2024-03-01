@@ -11,7 +11,7 @@ export default class Str {
     afterLast(search: string): this | string;
     before(search: string): this | string;
     beforeLast(search: string): this | string;
-    bind(): this;
+    bind(...args: any[]): this;
     toString(): string;
     get(start?: number, end?: number): string;
     append(...values: string[]): this;
