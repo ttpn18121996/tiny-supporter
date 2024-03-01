@@ -7,9 +7,11 @@ export type RandomOptions = {
 };
 
 export default class Str {
-  constructor(
-    private value: string
-  ) {}
+  private value: string;
+
+  constructor(value: string) {
+    this.value = this.caseString(value);
+  }
 
   public length(): number {
     return this.value.length;
