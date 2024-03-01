@@ -4,7 +4,7 @@ const _1 = require(".");
 class Str {
     value;
     constructor(value) {
-        this.value = value;
+        this.value = this.caseString(value);
     }
     length() {
         return this.value.length;
