@@ -49,14 +49,14 @@ In case the price length is greater than the key length.
 
 ```js
 const keys = ['id', 'name'];
-const values = [1, 'Trinh Tran Phuong Nam', 'ttpn18121996@gmail.com', 'bla bla'];
+const values = [1, 'Trinh Tran Phuong Nam', 'namttp@example.com', 'bla bla'];
 
 console.log(_obj.combine(keys, values));
 /*
 {
   id: 1,
   name: 'Trinh Tran Phuong Nam',
-  key_0: 'ttpn18121996@gmail.com',
+  key_0: 'namttp@example.com',
   key_1: 'bla bla'
 }
 */
@@ -74,7 +74,7 @@ const data = {
 
 console.log(_obj.get(data, 'user.name')); // 'Trinh Tran Phuong Nam'
 console.log(_obj.get(data, 'user.email')); // null
-console.log(_obj.get(data, 'user.email', 'ttpn18121996@gmail.com')); // 'ttpn18121996@gmail.com'
+console.log(_obj.get(data, 'user.email', 'namttp@example.com')); // 'namttp@example.com'
 console.log(_obj.get(data, 'user.email', () => 'We can pass the callback here.')); // 'We can pass the callback here.'
 ```
 
@@ -90,9 +90,9 @@ const data = {
 
 console.log(_obj.get(data, 'user.email')); // null
 
-_obj.set(data, 'user.email', 'ttpn18121996@gmail.com');
+_obj.set(data, 'user.email', 'namttp@example.com');
 
-console.log(_obj.get(data, 'user.email')); // 'ttpn18121996@gmail.com'
+console.log(_obj.get(data, 'user.email')); // 'namttp@example.com'
 ```
 
 ### _obj.only()
@@ -101,7 +101,7 @@ console.log(_obj.get(data, 'user.email')); // 'ttpn18121996@gmail.com'
 const user = {
   id: 1,
   name: 'Trinh Tran Phuong Nam',
-  email: 'ttpn18121996@gmail.com',
+  email: 'namttp@example.com',
   address: 'Everywhere',
 };
 
@@ -115,7 +115,7 @@ console.log(_obj.only(user, ['id', 'name'])); // { id: 1, name: 'Trinh Tran Phuo
 const user = {
   id: 1,
   name: 'Trinh Tran Phuong Nam',
-  email: 'ttpn18121996@gmail.com',
+  email: 'namttp@example.com',
 };
 
 console.log(_obj.except(user, 'email')); // { id: 1, name: 'Trinh Tran Phuong Nam' }
@@ -164,11 +164,11 @@ import { _arr } from 'tiny-supporter';
 ### _arr().get()
 
 ```js
-console.log(_arr([1, 2, 3, 4, 5, 6]).get()) // [1, 2, 3, 4, 5, 6]
+console.log(_arr([1, 2, 3, 4, 5, 6]).get()); // [1, 2, 3, 4, 5, 6]
 
 # OR
 
-console.log(_arr([1, 2, 3, 4, 5, 6]).toArray()) // [1, 2, 3, 4, 5, 6]
+console.log(_arr([1, 2, 3, 4, 5, 6]).toArray()); // [1, 2, 3, 4, 5, 6]
 ```
 
 ### _arr().chunk()
@@ -176,7 +176,7 @@ console.log(_arr([1, 2, 3, 4, 5, 6]).toArray()) // [1, 2, 3, 4, 5, 6]
 ```js
 const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-console.log(_arr(data).chunk(2).get()) // [[1, 2], [3, 4], [5, 6], [7, 8], [9, 10]]
+console.log(_arr(data).chunk(2).get()); // [[1, 2], [3, 4], [5, 6], [7, 8], [9, 10]]
 ```
 
 ### _arr().first()
@@ -184,7 +184,7 @@ console.log(_arr(data).chunk(2).get()) // [[1, 2], [3, 4], [5, 6], [7, 8], [9, 1
 ```js
 const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-console.log(_arr(data).first()) // 1
+console.log(_arr(data).first()); // 1
 ```
 
 ### _arr().map()
@@ -243,12 +243,21 @@ console.log(_arr(data).supplement(5, 'additional item'),get()); // ['a', 'b', 'c
 
 ### _arr().toSelectOptions()
 
+The first parameter is an array with 2 elements,
+the first element is the name of the key that will be taken as the value of the option
+and the second element is the name of the key that will be taken as the label.
+
+The second parameter is an array with 2 elements,
+the first element is the name of the key that stores the value of the element retrieved by the key
+in the first parameter and the second element is the name of the key that stores the value of the element
+is obtained by the second key in the first parameter.
+
 ```js
 const users = [
   {
     id: 1,
     name: 'Trinh Tran Phuong Nam',
-    email: 'ttpn18121996@gmail.com',
+    email: 'namttp@example.com',
   },
   {
     id: 2,
@@ -257,7 +266,8 @@ const users = [
   }
 ];
 
-console.log(_arr(users).toSelectOptions(['id', 'name'], ['value', 'label']));
+const options = _arr(users).toSelectOptions(['id', 'name'], ['value', 'label']);
+console.log(options);
 /*
 [
   {
@@ -270,6 +280,55 @@ console.log(_arr(users).toSelectOptions(['id', 'name'], ['value', 'label']));
   },
 ]
 */
+
+// Example for react component
+<select>
+  {options.map(option => (
+      <option value={option.value} key={option.value}>
+        {option.label}
+      </option>
+    )
+  )}
+</select>
+
+<Select options={options} />
+```
+
+In case the array elements are not an object.
+The element's index will be the value of the option, the element's value will be the label.
+
+```js
+const status = ['new', 'in process', 'done'];
+console.log(_arr(status).toSelectOptions());
+/*
+[
+  {
+    value: 0,
+    label: 'new',
+  },
+  {
+    value: 1,
+    label: 'in process',
+  },
+  {
+    value: 2,
+    label: 'done',
+  },
+]
+*/
+```
+
+### _arr().count()
+
+```js
+console.log(_arr([1, 2, 3]).count()); // 3
+```
+
+### _arr().isEmpty()
+
+```js
+console.log(_arr([]).isEmpty()); // true
+console.log(_arr([]).supplement(10).isEmpty()); // false
 ```
 
 ## _str()
@@ -285,11 +344,17 @@ import { _str } from 'tiny-supporter';
 ### _str().get()
 
 ```js
-console.log(_str('Lorem ipsum').get()) // 'Lorem ipsum'
+console.log(_str('Lorem ipsum').get()); // 'Lorem ipsum'
 
 # OR
 
-console.log(_str('Lorem ipsum').toString()) // 'Lorem ipsum'
+console.log(_str('Lorem ipsum').toString()); // 'Lorem ipsum'
+```
+
+### _str().length()
+
+```js
+console.log(_str('Nam').length()); // 3
 ```
 
 ### _str().after()
@@ -439,6 +504,40 @@ console.log(password); // '6!?iR(2)iQW}>UY})owi'
 console.log(_str('Hello everyone').replace(/^Hello/, 'Hi').get()); // 'Hi everyone'
 ```
 
+### _str().slice()
+
+```js
+const str = 'The quick brown fox jumps over the lazy dog.';
+
+console.log(_str(str).slice(31).get()); // 'the lazy dog.'
+console.log(_str(str).slice(4, 19).get()); // 'quick brown fox'
+console.log(_str(str).slice(-4).get()); // 'dog.'
+console.log(_str(str).slice(-9, -5).get()); // 'lazy'
+console.log(_str(str).slice(-9).upper().slice(0, 8).get()); // 'LAZY DOG'
+```
+
+### _str().padStart()
+
+```js
+console.log(_str('1').padStart(2, '0').get()); // '01'
+
+const email = 'namttp@example.com';
+const marked = _str(email)
+  .before('@')
+  .slice(-3)
+  .padStart(_str(email).before('@').length(), '*')
+  .append(_str(email).after('@').prepend('@').get())
+  .get();
+console.log(marked); // '***ttp@example.com'
+```
+
+### _str().padEnd()
+
+```js
+console.log(_str('200').padEnd(10, '-').get()); // '200-------'
+console.log(_str('200').padEnd(5)); // '200     '
+```
+
 ### _str().caseString()
 
 ```js
@@ -491,6 +590,11 @@ console.log(empty(false)); // true
 console.log(empty(0)); // true
 console.log(empty([])); // true
 console.log(empty({})); // true
+console.log(empty({
+  items: [],
+  count() { return this.items.length; }
+})); // true
+console.log(empty({ isEmpty() { return true; } })); // true
 ```
 
 ### typeOf()
@@ -511,8 +615,8 @@ What makes this function different from typeof is:
 console.log(typeof []); // object
 console.log(typeOf([])); // array
 
-console.log(typeof (Array.from([]))); // object
-console.log(typeOf(Array.from([]))); // array
+console.log(typeof null); // object
+console.log(typeOf(null)); // null
 ```
 
 ```js

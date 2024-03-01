@@ -22,7 +22,15 @@ const empty = (value) => {
         return value.length === 0;
     }
     else if ((0, exports.typeOf)(value) === 'object') {
-        return Object.keys(value).length === 0;
+        if (value.hasOwnProperty('count') || typeof value.count === 'function') {
+            return value.count() === 0;
+        }
+        else if (value.hasOwnProperty('isEmpty') || typeof value.isEmpty === 'function') {
+            return value.isEmpty();
+        }
+        else {
+            return Object.keys(value).length === 0;
+        }
     }
     return value === undefined || value === null || value === false || value === '' || value === 0;
 };
