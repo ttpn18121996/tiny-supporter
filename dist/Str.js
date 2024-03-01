@@ -6,6 +6,9 @@ class Str {
     constructor(value) {
         this.value = value;
     }
+    length() {
+        return this.value.length;
+    }
     after(search) {
         if (this.value === '') {
             return this.value;
@@ -194,6 +197,18 @@ class Str {
     }
     replace(regexp, replacer) {
         this.value = this.value.replace(regexp, replacer);
+        return this;
+    }
+    slice(start, end) {
+        this.value = this.value.slice(start, end);
+        return this;
+    }
+    padStart(length, char) {
+        this.value = this.value.padStart(length, char);
+        return this;
+    }
+    padEnd(length, char) {
+        this.value = this.value.padEnd(length, char);
         return this;
     }
     caseString(value) {

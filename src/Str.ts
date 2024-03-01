@@ -11,6 +11,10 @@ export default class Str {
     private value: string
   ) {}
 
+  public length(): number {
+    return this.value.length;
+  }
+
   public after(search: string): this | string {
     if (this.value === '') {
       return this.value;
@@ -244,6 +248,24 @@ export default class Str {
 
   public replace(regexp: RegExp, replacer: string): this {
     this.value = this.value.replace(regexp, replacer);
+
+    return this;
+  }
+
+  public slice(start?: number, end?: number) {
+    this.value = this.value.slice(start, end);
+
+    return this;
+  }
+
+  public padStart(length: number, char: string): this {
+    this.value = this.value.padStart(length, char);
+
+    return this;
+  }
+  
+  public padEnd(length: number, char: string): this {
+    this.value = this.value.padEnd(length, char);
 
     return this;
   }
