@@ -65,8 +65,7 @@ export default class Str {
     return this;
   }
 
-  public bind(): this {
-    const args = arguments;
+  public bind(...args: any[]): this {
     let valueBound: string = this.value;
 
     if (Array.isArray(args?.[0])) {
