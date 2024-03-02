@@ -34,7 +34,9 @@ const Obj = {
   get(obj: {[key: string]: any}, keys: string, defaultValue: any = null): any {
     let result = obj;
     keys.split('.').forEach(key => {
-      result = result?.[key];
+      if (!empty(key)) {
+        result = result?.[key];
+      }
     });
 
     if (!isset(result)) {

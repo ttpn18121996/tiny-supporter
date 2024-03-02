@@ -33,7 +33,9 @@ const Obj = {
     get(obj, keys, defaultValue = null) {
         let result = obj;
         keys.split('.').forEach(key => {
-            result = result?.[key];
+            if (!(0, _1.empty)(key)) {
+                result = result?.[key];
+            }
         });
         if (!(0, _1.isset)(result)) {
             if ((0, _1.typeOf)(defaultValue) === 'function')
