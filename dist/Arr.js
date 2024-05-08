@@ -102,6 +102,20 @@ class Arr {
         return this;
     }
     /**
+     * Filter out duplicate elements to ensure that array elements are unique.
+     * @param {string} key The key is used to check for a unique value for an array element that is an object.
+     * @returns {Arr}
+     */
+    unique(key) {
+        if (key) {
+            this.value = [...new Map(this.value.map(item => [item[key], item])).values()];
+        }
+        else {
+            this.value = this.value.filter((value, index, self) => self.indexOf(value) === index);
+        }
+        return this;
+    }
+    /**
      * Convert the array to an array of options of a selection.
      * @param {string[]} keyValueEntries
      * @param {string[]} optionKey
