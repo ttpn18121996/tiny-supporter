@@ -241,6 +241,48 @@ console.log(_arr(data).supplement(5),get()); // ['a', 'b', 'c', null, null]
 console.log(_arr(data).supplement(5, 'additional item'),get()); // ['a', 'b', 'c', 'additional item', 'additional item']
 ```
 
+### _arr().unique()
+
+Remove duplicate elements in the array.
+
+```js
+const data = ['a', 'b', 1, 2, 'a', '1'];
+console.log(_arr(data).unique().get()); // ['a', 'b', 1, 2, '1']
+```
+
+Check for a unique value for an array element that is an object by key.
+
+```js
+const users = [
+  {
+    id: 1,
+    name: 'Trinh Tran Phuong Nam',
+  },
+  {
+    id: 2,
+    name: 'John Doe',
+  },
+  {
+    id: 1,
+    name: 'Trinh Tran Phuong Nam',
+  },
+];
+
+console.log(_arr(users).unique('id').get());
+/*
+[
+  {
+    id: 1,
+    name: 'Trinh Tran Phuong Nam',
+  },
+  {
+    id: 2,
+    name: 'John Doe',
+  },
+]
+*/
+```
+
 ### _arr().toSelectOptions()
 
 The first parameter is an array with 2 elements,
