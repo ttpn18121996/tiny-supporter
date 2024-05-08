@@ -36,6 +36,12 @@ export default class Arr {
      */
     supplement(range: number, value?: null): this;
     /**
+     * Filter out duplicate elements to ensure that array elements are unique.
+     * @param {string} key The key is used to check for a unique value for an array element that is an object.
+     * @returns {Arr}
+     */
+    unique(key?: string): this;
+    /**
      * Convert the array to an array of options of a selection.
      * @param {string[]} keyValueEntries
      * @param {string[]} optionKey
