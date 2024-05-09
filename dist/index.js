@@ -38,7 +38,13 @@ exports.empty = empty;
 /**
  * Check the exact data type of a certain value.
  */
-const typeOf = (value) => Object.prototype.toString.call(value).slice(8, -1).toLowerCase();
+const typeOf = function (value) {
+    const result = Object.prototype.toString.call(value).slice(8, -1).toLowerCase();
+    if (result === 'function' && /^class/i.test(value.toString())) {
+        return 'constructor';
+    }
+    return result;
+};
 exports.typeOf = typeOf;
 /**
  * Check if a string value is json.
