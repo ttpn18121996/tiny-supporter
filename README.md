@@ -659,6 +659,10 @@ console.log(typeOf([])); // array
 
 console.log(typeof null); // object
 console.log(typeOf(null)); // null
+
+class A {}
+console.log(typeof A); // function
+console.log(typeOf(A)); // constructor
 ```
 
 ```js
