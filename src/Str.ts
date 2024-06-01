@@ -273,7 +273,7 @@ export default class Str {
 
   public caseString(value: any): string {
     return typeof value === 'object' &&
-      (value.hasOwnProperty('toString') || value.toString === Object.prototype.toString)
+      (value?.hasOwnProperty('toString') || value.toString === Object.prototype.toString)
       ? value.toString()
       : `${value}`;
   }
