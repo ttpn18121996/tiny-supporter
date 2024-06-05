@@ -7,10 +7,12 @@ export default class Str {
     private value;
     constructor(value: string);
     length(): number;
-    after(search: string): this | string;
-    afterLast(search: string): this | string;
-    before(search: string): this | string;
-    beforeLast(search: string): this | string;
+    after(search: string): this;
+    afterLast(search: string): this;
+    before(search: string): this;
+    beforeLast(search: string): this;
+    between(from: string, to: string): this;
+    betweenFirst(from: string, to: string): this;
     bind(...args: any[]): this;
     toString(): string;
     get(start?: number, end?: number): string;

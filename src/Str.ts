@@ -17,53 +17,64 @@ export default class Str {
     return this.value.length;
   }
 
-  public after(search: string): this | string {
-    if (this.value === '') {
-      return this.value;
+  public after(search: string): this {
+    if (this.value !== '') {
+      this.value = this.value
+        .split(search)
+        .filter((word: string, position: number) => {
+          return position > 0;
+        })
+        .join(search);
     }
-
-    this.value = this.value
-      .split(search)
-      .filter((word: string, position: number) => {
-        return position > 0;
-      })
-      .join(search);
 
     return this;
   }
   
-  public afterLast(search: string): this | string {
-    if (this.value === '') {
-      return this.value;
+  public afterLast(search: string): this {
+    if (this.value !== '') {
+      this.value = this.value.split(search).reverse()[0];
     }
-    this.value = this.value.split(search).reverse()[0];
 
     return this;
 
   }
 
-  public before(search: string): this | string {
-    if (this.value === '') {
-      return this.value;
+  public before(search: string): this {
+    if (this.value !== '') {
+      this.value = this.value.split(search, 1).join('');
     }
-    this.value = this.value.split(search, 1).join('');
 
     return this;
   }
 
-  public beforeLast(search: string): this | string {
-    if (this.value === '') {
-      return this.value;
+  public beforeLast(search: string): this {
+    if (this.value !== '') {
+      this.value = this.value
+        .split(search)
+        .filter((word: string, position: number) => {
+          return position < word.length - 1;
+        })
+        .join(search);
     }
-    this.value = this.value
-      .split(search)
-      .filter((word: string, position: number) => {
-        return position < word.length - 1;
-      })
-      .join(search);
 
     return this;
   }
+
+  public between(from: string, to: string): this {
+    if (from !== '' && to !== '') {
+      this.beforeLast(to).after(from);
+    }
+
+    return this;
+  }
+
+  public betweenFirst(from: string, to: string): this {
+    if (from !== '' && to !== '') {
+      this.before(to).after(from);
+    }
+
+    return this;
+  }  
 
   public bind(...args: any[]): this {
     let valueBound: string = this.value;

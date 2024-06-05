@@ -10,41 +10,49 @@ class Str {
         return this.value.length;
     }
     after(search) {
-        if (this.value === '') {
-            return this.value;
+        if (this.value !== '') {
+            this.value = this.value
+                .split(search)
+                .filter((word, position) => {
+                return position > 0;
+            })
+                .join(search);
         }
-        this.value = this.value
-            .split(search)
-            .filter((word, position) => {
-            return position > 0;
-        })
-            .join(search);
         return this;
     }
     afterLast(search) {
-        if (this.value === '') {
-            return this.value;
+        if (this.value !== '') {
+            this.value = this.value.split(search).reverse()[0];
         }
-        this.value = this.value.split(search).reverse()[0];
         return this;
     }
     before(search) {
-        if (this.value === '') {
-            return this.value;
+        if (this.value !== '') {
+            this.value = this.value.split(search, 1).join('');
         }
-        this.value = this.value.split(search, 1).join('');
         return this;
     }
     beforeLast(search) {
-        if (this.value === '') {
-            return this.value;
+        if (this.value !== '') {
+            this.value = this.value
+                .split(search)
+                .filter((word, position) => {
+                return position < word.length - 1;
+            })
+                .join(search);
         }
-        this.value = this.value
-            .split(search)
-            .filter((word, position) => {
-            return position < word.length - 1;
-        })
-            .join(search);
+        return this;
+    }
+    between(from, to) {
+        if (from !== '' && to !== '') {
+            this.beforeLast(to).after(from);
+        }
+        return this;
+    }
+    betweenFirst(from, to) {
+        if (from !== '' && to !== '') {
+            this.before(to).after(from);
+        }
         return this;
     }
     bind(...args) {
@@ -212,7 +220,7 @@ class Str {
     }
     caseString(value) {
         return typeof value === 'object' &&
-            (value.hasOwnProperty('toString') || value.toString === Object.prototype.toString)
+            (value?.hasOwnProperty('toString') || value.toString === Object.prototype.toString)
             ? value.toString()
             : `${value}`;
     }
