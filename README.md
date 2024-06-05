@@ -423,6 +423,19 @@ console.log(_str('This is my name').before(' ').get()); // 'This'
 console.log(_str('This is my name').beforeLast(' ').get()); // 'This is my'
 ```
 
+### _str().between()
+
+```js
+console.log(_str('This is my name').between('This', 'name').get()); // 'is my'
+```
+
+### _str().betweenFirst()
+
+```js
+console.log(_str('[a] bc [d]').betweenFirst('[', ']').get()); // 'a'
+console.log(_str('[a] bc [d]').between('[', ']').get()); // 'a] bc [d'
+```
+
 ### _str().bind()
 
 ```js
