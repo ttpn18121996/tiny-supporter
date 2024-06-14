@@ -105,6 +105,27 @@ const Obj = {
   },
 
   /**
+   * Deeply check whether the properties exist or not.
+   * @param {Object} obj The object to get the item from
+   * @param {string} list List of keys to ignore
+   * @returns {boolean}
+   */
+  has(obj: {[key: string]: any}, keys: string): boolean {
+    let result = obj;
+    keys.split('.').forEach(key => {
+      if (!empty(key)) {
+        result = result?.[key];
+
+        if (typeOf(result) === 'undefined') {
+          return false;
+        }
+      }
+    });
+
+    return true;
+  },
+
+  /**
    * Run a map over each of the properties in the object.
    * @param {Object} obj The object to loop each property
    * @param {Function} callback
