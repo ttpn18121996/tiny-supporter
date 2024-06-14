@@ -122,6 +122,22 @@ console.log(_obj.except(user, 'email')); // { id: 1, name: 'Trinh Tran Phuong Na
 console.log(_obj.except(user, ['name', 'email'])); // { id: 1 }
 ```
 
+### _obj.has()
+
+Deeply check whether the properties exist or not.
+
+```js
+const user = {
+  id: 1,
+  address: {
+    city: 'Sample city',
+  }
+};
+
+console.log(_obj.has(user, 'address.city')); // true
+console.log(_obj.has(user, 'address.district')); // false
+```
+
 ### _obj.map()
 
 ```js
