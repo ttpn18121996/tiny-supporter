@@ -264,6 +264,18 @@ export default class Str {
     return this;
   }
 
+  public replaceAt(index: number, replacement: string): this {
+    this.value = this.value.substring(0, index) + replacement + this.value.substring(index + replacement.length);
+
+    return this;
+  }
+
+  public splice(start: number, deleteCount: number, subStr: string): this {
+    this.value = this.value.slice(0, start) + subStr + this.value.slice(start + Math.abs(deleteCount));
+
+    return this;
+  }
+
   public slice(start?: number, end?: number) {
     this.value = this.value.slice(start, end);
 

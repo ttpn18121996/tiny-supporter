@@ -575,6 +575,18 @@ console.log(password); // '6!?iR(2)iQW}>UY})owi'
 console.log(_str('Hello everyone').replace(/^Hello/, 'Hi').get()); // 'Hi everyone'
 ```
 
+### _str().replaceAt()
+
+```js
+console.log(_str('Hello everyone').replaceAt(2, '!!').get()); // 'He!!o everyone'
+```
+
+### _str().splice()
+
+```js
+console.log(_str('Hello everyone!!!').splice(6, 8, '**everyone**').get()); // 'Hello **everyone**!!'
+```
+
 ### _str().slice()
 
 ```js
