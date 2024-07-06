@@ -37,15 +37,39 @@ export default class Arr {
    * @returns {any[]} A new array populated with the results of calling
    * a provided function on every element in the calling array.
    */
-  public map(callback: (value: any, key: any) => {}): any[] {
-    const values = Object.values(this.value);
-    const keys = Object.keys(this.value);
+  public map(callback: (value: any, key: number) => {}): any[] {
     const result = [];
-    for (let i = 0; i < keys.length; i++) {
-      result.push(callback(values[i], keys[i]));
+
+    for (let i = 0; i < this.value.length; i++) {
+      result.push(callback(this.value[i], i));
     }
 
     return result;
+  }
+
+  /**
+   * Run a grouping map over the items. The callback should return an array with a single key/value pair.
+   * @param {Function} callback Return an array with a single key/value pair.
+   * @returns {Object} a new object with the key being the group name and the value being an array of grouped values.
+   */
+  public mapToGroups(callback: (value: any, key: number) => [key: string, value: any]): {[key: string]: any} {
+    return this.value.reduce((pre, cur, index) => {
+      const pair = callback(cur, index);
+
+      if (!Array.isArray(pair) || pair.length < 2) {
+        throw new RangeError('The callback should return an array with a single key/value pair.');
+      }
+
+      const [key, value] = pair;
+
+      if (typeof pre[key] === undefined) {
+        pre[key] = value;
+      } else {
+        pre[key].push(value);
+      }
+
+      return pre;
+    }, {});
   }
 
   /**

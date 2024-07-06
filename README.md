@@ -220,6 +220,33 @@ const users = [
 console.log(_arr(users).map(user => user.name)); // ['Trinh Tran Phuong Nam', 'John Doe']
 ```
 
+### _arr().mapToGroups()
+
+```js
+const users = [
+  {
+    name: 'John Doe',
+    department: 'Sales',
+  },
+  {
+    name: 'Jane Doe',
+    department: 'Sales',
+  },
+  {
+    name: 'Johnny Doe',
+    department: 'Marketing',
+  },
+];
+
+console.log(_arr(users).mapToGroups(user => [user.department, user.name]));
+/*
+{
+  Sales: ['John Doe', 'Jane Doe'],
+  Marketing: ['Johnny Doe'],
+}
+*/
+```
+
 ### _arr().pluck()
 
 ```js
