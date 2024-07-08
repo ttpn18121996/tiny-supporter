@@ -63,7 +63,7 @@ export default class Arr {
       const [key, value] = pair;
 
       if (typeof pre[key] === undefined) {
-        pre[key] = value;
+        pre[key] = [value];
       } else {
         pre[key].push(value);
       }
