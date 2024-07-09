@@ -13,15 +13,24 @@ export default class Str {
     this.value = this.caseString(value);
   }
 
+  /**
+   * Get the length of the string.
+   * @returns {number}
+   */
   public length(): number {
     return this.value.length;
   }
 
+  /**
+   * Return the remainder of a string after the first occurrence of a given value.
+   * @param {string} search
+   * @returns {Str}
+   */
   public after(search: string): this {
     if (this.value !== '') {
       this.value = this.value
         .split(search)
-        .filter((word: string, position: number) => {
+        .filter((_: string, position: number) => {
           return position > 0;
         })
         .join(search);
@@ -29,16 +38,25 @@ export default class Str {
 
     return this;
   }
-  
+
+  /**
+   * Return the remainder of a string after the last occurrence of a given value.
+   * @param {string} search
+   * @returns {Str}
+   */
   public afterLast(search: string): this {
     if (this.value !== '') {
       this.value = this.value.split(search).reverse()[0];
     }
 
     return this;
-
   }
 
+  /**
+   * Get the portion of a string before the first occurrence of a given value.
+   * @param {string} search
+   * @returns {Str}
+   */
   public before(search: string): this {
     if (this.value !== '') {
       this.value = this.value.split(search, 1).join('');
@@ -47,6 +65,11 @@ export default class Str {
     return this;
   }
 
+  /**
+   * Get the portion of a string before the last occurrence of a given value.
+   * @param {string} search
+   * @returns {Str}
+   */
   public beforeLast(search: string): this {
     if (this.value !== '') {
       this.value = this.value
@@ -60,6 +83,12 @@ export default class Str {
     return this;
   }
 
+  /**
+   * Get the portion of a string between two given values.
+   * @param {string} from
+   * @param {string} to
+   * @returns {Str}
+   */
   public between(from: string, to: string): this {
     if (from !== '' && to !== '') {
       this.beforeLast(to).after(from);
@@ -68,14 +97,25 @@ export default class Str {
     return this;
   }
 
+  /**
+   * Get the smallest possible portion of a string between two given values.
+   * @param {string} from
+   * @param {string} to
+   * @returns {Str}
+   */
   public betweenFirst(from: string, to: string): this {
     if (from !== '' && to !== '') {
       this.before(to).after(from);
     }
 
     return this;
-  }  
+  }
 
+  /**
+   * Binds the values ​​to the given string.
+   * @param {any[]} args
+   * @returns {Str}
+   */
   public bind(...args: any[]): this {
     let valueBound: string = this.value;
 
@@ -107,10 +147,18 @@ export default class Str {
     return this;
   }
 
+  /**
+   * Get the raw string value.
+   * @returns {string}
+   */
   public toString(): string {
-    return this.value
+    return this.value;
   }
 
+  /**
+   * Get the raw string value.
+   * @returns {string}
+   */
   public get(start = 0, end = 0): string {
     if (end > 0) {
       return this.toString().substring(start, end);
@@ -119,30 +167,52 @@ export default class Str {
     return this.toString();
   }
 
+  /**
+   * Append the given values to the string.
+   * @param {string[]} values
+   * @returns {Str}
+   */
   public append(...values: string[]): this {
     this.value += values.join('');
     return this;
   }
 
+  /**
+   * Prepend the given values to the string.
+   * @param {string[]} values
+   * @returns {Str}
+   */
   public prepend(...values: string[]): this {
     this.value = values.join('') + this.value;
     return this;
   }
 
+  /**
+   * Convert the given string to proper case.
+   * @returns {Str}
+   */
   public title(): this {
     this.value = this.value
       .replace(/[\s\-_\.]+/g, ' ')
       .replace(/[a-zA-Z0-9]+[\S\-_]*/g, match => match.charAt(0).toUpperCase() + match.substring(1).toLowerCase());
 
-      return this;
+    return this;
   }
 
+  /**
+   * Convert a value to studly caps case.
+   * @returns {Str}
+   */
   public studly(): this {
     this.value = this.title().get().replace(/\s/g, '');
 
     return this;
   }
 
+  /**
+   * Convert a value to camel case.
+   * @returns {Str}
+   */
   public camel(): this {
     this.value = this.studly()
       .get()
@@ -151,18 +221,30 @@ export default class Str {
     return this;
   }
 
+  /**
+   * Convert the given string to lower-case.
+   * @returns {Str}
+   */
   public lower(): this {
     this.value = this.value.toLowerCase();
 
     return this;
   }
 
+  /**
+   * Convert the given string to upper-case.
+   * @returns {Str}
+   */
   public upper(): this {
     this.value = this.value.toUpperCase();
-    
+
     return this;
   }
 
+  /**
+   * Remove Vietnamese unicode characters from the string.
+   * @returns {Str}
+   */
   public nonUnicode(): this {
     this.value = this.value
       .replace(/á|à|ả|ạ|ã|ă|ắ|ằ|ẳ|ẵ|ặ|â|ấ|ầ|ẩ|ẫ|ậ/g, 'a')
@@ -183,6 +265,11 @@ export default class Str {
     return this;
   }
 
+  /**
+   * Convert a string to snake case.
+   * @param {string} delimiter
+   * @returns {Str}
+   */
   public snake(delimiter = '_'): this {
     this.value = this.nonUnicode()
       .get()
@@ -193,12 +280,20 @@ export default class Str {
     return this;
   }
 
+  /**
+   * Convert a string to kebab case.
+   * @returns {Str}
+   */
   public kebab(): this {
     this.snake('-');
 
     return this;
   }
 
+  /**
+   * Escape HTML character.
+   * @returns {Str}
+   */
   public escapeHtml(): this {
     this.value = this.value
       .replace(/&/g, '&amp;')
@@ -206,10 +301,15 @@ export default class Str {
       .replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;')
       .replace(/'/g, '&#039;');
-    
-      return this;
+
+    return this;
   }
 
+  /**
+   * Limit the number of characters in a string.
+   * @param {number} length
+   * @returns {Str}
+   */
   public limit(length = 100): this {
     if (this.value.length <= length) {
       return this;
@@ -236,6 +336,12 @@ export default class Str {
     return result;
   }
 
+  /**
+   * Generate a more truly "random" string.
+   * @param {number} length
+   * @param {RandomOptions} options
+   * @returns {string}
+   */
   public random(length = 16, options: RandomOptions = {}): string {
     const UPPERCASE_CHAR_CODES = this.arrayFromLowToHigh(65, 90);
     const LOWCASE_CHAR_CODES = this.arrayFromLowToHigh(97, 122);
@@ -258,42 +364,84 @@ export default class Str {
     return result.join('');
   }
 
+  /**
+   * Replace the given value in the given string.
+   * @param {RegExp} regexp
+   * @param {string} replacer
+   * @returns {Str}
+   */
   public replace(regexp: RegExp, replacer: string): this {
     this.value = this.value.replace(regexp, replacer);
 
     return this;
   }
 
+  /**
+   * Replace the given value in the given string from a specific position.
+   * @param {number} index
+   * @param {string} replacement
+   * @returns {Str}
+   */
   public replaceAt(index: number, replacement: string): this {
     this.value = this.value.substring(0, index) + replacement + this.value.substring(index + replacement.length);
 
     return this;
   }
 
+  /**
+   * Split a string from a specific position and then insert the splice into the slice.
+   * @param {number} start
+   * @param {number} deleteCount
+   * @param {string} subStr
+   * @returns {Str}
+   */
   public splice(start: number, deleteCount: number, subStr: string): this {
     this.value = this.value.slice(0, start) + subStr + this.value.slice(start + Math.abs(deleteCount));
 
     return this;
   }
 
-  public slice(start?: number, end?: number) {
+  /**
+   * Extracts a section of this string and returns it as a new string.
+   * @param {number} start
+   * @param {number|undefined} end
+   * @returns {Str}
+   */
+  public slice(start?: number, end?: number): this {
     this.value = this.value.slice(start, end);
 
     return this;
   }
 
+  /**
+   * Pads a given value in front of a given string until the given length is reached.
+   * @param {number} length
+   * @param {string} char
+   * @returns {Str}
+   */
   public padStart(length: number, char: string): this {
     this.value = this.value.padStart(length, char);
 
     return this;
   }
-  
+
+  /**
+   * Pads a given value behind a given string until the given length is reached.
+   * @param {number} length
+   * @param {string} char
+   * @returns {Str}
+   */
   public padEnd(length: number, char: string): this {
     this.value = this.value.padEnd(length, char);
 
     return this;
   }
 
+  /**
+   * Casts a value to a string type.
+   * @param value
+   * @returns {string}
+   */
   public caseString(value: any): string {
     return typeof value === 'object' &&
       (value?.hasOwnProperty('toString') || value.toString === Object.prototype.toString)

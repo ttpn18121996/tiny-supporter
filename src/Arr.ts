@@ -7,7 +7,12 @@ export default class Arr {
     this.value = value ?? [];
   }
 
-  public chunk(size = 1): this {
+  /**
+   * Chunk the array into chunks of the given size.
+   * @param {number} size
+   * @returns {Arr}
+   */
+  public chunk(size: number = 1): this {
     let temp = [...this.value];
     this.value = temp.reduce((result: any[], item, index) => {
       const chunkIndex = Math.floor(index / size);
@@ -151,7 +156,7 @@ export default class Arr {
   }
 
   /**
-   * Convert the array to an array of options of a selection.
+   * Convert the array to options of a selection.
    * @param {string[]} keyValueEntries 
    * @param {string[]} optionKey 
    * @returns List of options.
