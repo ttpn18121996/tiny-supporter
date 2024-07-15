@@ -20,6 +20,9 @@ jobs:
     steps:
     - name: "Checkout the code"
       uses: actions/checkout@v4
+
+    - name: "Install npm dependencies"
+      run: npm ci && npm run build
     
     - name: "Run jest"
-      uses: stefanoeb/jest-action@1.0.3
+      run: npm run test
