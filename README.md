@@ -436,6 +436,12 @@ console.log(_str('Lorem ipsum').get()); // 'Lorem ipsum'
 console.log(_str('Lorem ipsum').toString()); // 'Lorem ipsum'
 ```
 
+You can also get a substring from the start position to the end position.
+
+```js
+console.log(_str('Lorem ipsum').get(6, 11)); // 'ipsum'
+```
+
 ### _str().length()
 
 ```js
@@ -469,7 +475,7 @@ console.log(_str('This is my name').beforeLast(' ').get()); // 'This is my'
 ### _str().between()
 
 ```js
-console.log(_str('This is my name').between('This', 'name').get()); // 'is my'
+console.log(_str('This is my name').between('This', 'name').get()); // ' is my '
 ```
 
 ### _str().betweenFirst()
@@ -611,7 +617,7 @@ console.log(_str('Hello everyone').replaceAt(2, '!!').get()); // 'He!!o everyone
 ### _str().splice()
 
 ```js
-console.log(_str('Hello everyone!!!').splice(6, 8, '**everyone**').get()); // 'Hello **everyone**!!'
+console.log(_str('Hello everyone!!!').splice(6, 8, '**everyone**').get()); // 'Hello **everyone**!!!'
 ```
 
 ### _str().slice()

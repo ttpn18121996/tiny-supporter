@@ -112,7 +112,7 @@ const Obj = {
    */
   has(obj: {[key: string]: any}, keys: string): boolean {
     let result = obj;
-    keys.split('.').forEach(key => {
+    for (const key of keys.split('.')) {
       if (!empty(key)) {
         result = result?.[key];
 
@@ -120,7 +120,7 @@ const Obj = {
           return false;
         }
       }
-    });
+    }
 
     return true;
   },

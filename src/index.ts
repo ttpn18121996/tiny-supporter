@@ -74,7 +74,7 @@ export const _str = (value: string = ''): Str => new Str(value);
 /**
  * Array supporter.
  */
-export const _arr = (value: any[] | null = []): Arr => new Arr(value);
+export const _arr = (value: any[] | null = null): Arr => new Arr(value);
 
 /**
  * Object supporter.
