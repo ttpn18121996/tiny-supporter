@@ -12,14 +12,14 @@ on:
       - 'main'
       - 'releases/**'
 
-  jobs:
-    test_features:
+jobs:
+  test_features:
 
-      runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
-      steps:
-      - name: "Checkout the code"
-        uses: actions/checkout@v4
-      
-      - name: "Run jest"
-        uses: stefanoeb/jest-action@1.0.3
+    steps:
+    - name: "Checkout the code"
+      uses: actions/checkout@v4
+    
+    - name: "Run jest"
+      uses: stefanoeb/jest-action@1.0.3
