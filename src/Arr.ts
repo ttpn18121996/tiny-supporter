@@ -201,7 +201,7 @@ export default class Arr {
    * @returns An array value of this object.
    */
   public toArray(): any[] {
-    return Array.isArray(this.value) ? this.value : Object.values(this.value);
+    return Array.isArray(this.value) ? this.value : Object.values(this.value)
   }
 
   /**
