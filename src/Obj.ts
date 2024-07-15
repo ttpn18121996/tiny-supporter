@@ -2,7 +2,6 @@ import { empty, isset, typeOf } from '.';
 import Str from './Str';
 
 const Obj = {
-
   /**
    * Combine a key list and a value list into one object.
    * @param {string[]} keys List of keys to combine.
@@ -20,7 +19,7 @@ const Obj = {
         ...pre,
         [cur]: values?.[curIndex] ? values[curIndex] : null,
       }),
-      {}
+      {},
     );
   },
 
@@ -31,7 +30,7 @@ const Obj = {
    * @param {any} defaultValue Default value returned if not found.
    * @returns {any} The value of the specified property.
    */
-  get(obj: {[key: string]: any}, keys: string, defaultValue: any = null): any {
+  get(obj: { [key: string]: any }, keys: string, defaultValue: any = null): any {
     let result = obj;
     keys.split('.').forEach(key => {
       if (!empty(key)) {
@@ -52,7 +51,7 @@ const Obj = {
    * @param {string} keys String containing the path to the item, separated by a "dot"
    * @param {any} value Value to set
    */
-  set(obj: {[key: string]: any}, keys: string, value: any) {
+  set(obj: { [key: string]: any }, keys: string, value: any) {
     const keyList = keys.split('.');
     let currentObj = obj;
     for (let i = 0; i < keyList.length - 1; i++) {
@@ -71,7 +70,7 @@ const Obj = {
    * @param {string|string[]} list List of keys to get
    * @returns {Object}
    */
-  only(obj: {[key: string]: any} | null, list: string | string[]): Object {
+  only(obj: { [key: string]: any } | null, list: string | string[]): Object {
     if (!obj) return {};
 
     return Object.keys(obj).reduce((pre, cur: string) => {
@@ -89,14 +88,11 @@ const Obj = {
    * @param {string|string[]} list List of keys to ignore
    * @returns {Object}
    */
-  except(obj: {[key: string]: any} | null, list: string | string[]): Object {
+  except(obj: { [key: string]: any } | null, list: string | string[]): Object {
     if (!obj) return {};
 
     return Object.keys(obj).reduce((pre, cur) => {
-      if (
-        (typeOf(list) === 'string' && cur !== list)
-        || (Array.isArray(list) && !list.includes(cur))
-      ) {
+      if ((typeOf(list) === 'string' && cur !== list) || (Array.isArray(list) && !list.includes(cur))) {
         return { ...pre, [cur]: obj[cur] };
       }
 
@@ -110,7 +106,7 @@ const Obj = {
    * @param {string} list List of keys to ignore
    * @returns {boolean}
    */
-  has(obj: {[key: string]: any}, keys: string): boolean {
+  has(obj: { [key: string]: any }, keys: string): boolean {
     let result = obj;
     for (const key of keys.split('.')) {
       if (!empty(key)) {
@@ -131,7 +127,7 @@ const Obj = {
    * @param {Function} callback
    * @returns {any[]}
    */
-  map(obj: {[key: string]: any} | null, callback: (value: any, key: string) => {}): any[] {
+  map(obj: { [key: string]: any } | null, callback: (value: any, key: string) => {}): any[] {
     const result = [];
 
     if (!obj) return [];
@@ -148,13 +144,13 @@ const Obj = {
    * @param {Object} obj
    * @returns {string}
    */
-  toQueryString(obj: {[key: string]: any} | null): string {
+  toQueryString(obj: { [key: string]: any } | null): string {
     const urlSearchParams = new URLSearchParams();
     for (const key in obj) {
       if (!isset(obj[key])) {
         continue;
       }
-      
+
       if (typeOf(obj[key]) === 'object' || typeOf(obj[key]) === 'array') {
         const entries = Object.entries<string>(obj[key]);
 

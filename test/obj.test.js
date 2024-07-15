@@ -35,7 +35,7 @@ describe('it can get an item from an array using "dot" notation', () => {
     const user = { id: 1 };
     expect(_obj.get(user, 'address.district', () => 'default value')).toEqual('default value');
   });
-  
+
   test('without the default value', () => {
     const user = { id: 1 };
     expect(_obj.get(user, 'address.district')).toBeNull();
@@ -85,6 +85,12 @@ test('it can run a map over each of the properties in the object', () => {
 });
 
 test('it can convert an object to a query string with each property', () => {
-  const filters = { search: { name: 'Nam' }, sort_field: 'id', sort_direction: 'desc', name: null, filter: { name: null } };
+  const filters = {
+    search: { name: 'Nam' },
+    sort_field: 'id',
+    sort_direction: 'desc',
+    name: null,
+    filter: { name: null },
+  };
   expect(_obj.toQueryString(filters)).toEqual('?search%5Bname%5D=Nam&sort_field=id&sort_direction=desc');
 });

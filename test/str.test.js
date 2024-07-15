@@ -87,7 +87,7 @@ describe('it can convert the given value', () => {
   test('to lower case', () => {
     expect(_str('NAM').lower().get()).toEqual('nam');
   });
-  
+
   test('to upper case', () => {
     expect(_str('nam').upper().get()).toEqual('NAM');
   });
@@ -100,7 +100,7 @@ describe('it can convert the given value', () => {
     expect(_str('trinhTranPhuongNam').snake().get()).toEqual('trinh_tran_phuong_nam');
     expect(_str('trinhTranPhuongNam').snake('-').get()).toEqual('trinh-tran-phuong-nam');
   });
-  
+
   test('to kebab case', () => {
     expect(_str('trinhTranPhuongNam').kebab().get()).toEqual('trinh-tran-phuong-nam');
   });
@@ -126,12 +126,12 @@ describe('it can generate a random string', () => {
     const actual = _str().random(16, { includeUppercase: true });
     expect(/[A-Z]/.test(actual)).toBeTruthy();
   });
-  
+
   test('with digits', () => {
     const actual = _str().random(16, { includeNumbers: true });
     expect(/[0-9]/.test(actual)).toBeTruthy();
   });
-  
+
   test('with symbols', () => {
     const actual = _str().random(16, { includeSymbols: true });
     expect(/[\!-\/]/.test(actual)).toBeTruthy();
@@ -139,7 +139,11 @@ describe('it can generate a random string', () => {
 });
 
 test('it can replace the given value in the given string', () => {
-  expect(_str('Hello everyone').replace(/^Hello/, 'Hi').get()).toEqual('Hi everyone');
+  expect(
+    _str('Hello everyone')
+      .replace(/^Hello/, 'Hi')
+      .get(),
+  ).toEqual('Hi everyone');
 });
 
 test('it can replace the given value in the given string from a specific position', () => {
@@ -156,15 +160,15 @@ describe.each(['The quick brown fox jumps over the lazy dog.'])(
     test('with 1 parameter', () => {
       expect(_str(str).slice(31).get()).toEqual('the lazy dog.');
     });
-    
+
     test('with 2 parameters', () => {
       expect(_str(str).slice(4, 19).get()).toEqual('quick brown fox');
     });
-    
+
     test('with negative parameter', () => {
       expect(_str(str).slice(-4).get()).toEqual('dog.');
     });
-    
+
     test('with 2 negative parameters', () => {
       expect(_str(str).slice(-9, -5).get()).toEqual('lazy');
     });
@@ -172,7 +176,7 @@ describe.each(['The quick brown fox jumps over the lazy dog.'])(
     test('with complicated cases', () => {
       expect(_str(str).slice(-9).upper().slice(0, 8).get()).toEqual('LAZY DOG');
     });
-  }
+  },
 );
 
 test('it can pads a given value in front of a given string until the given length is reached', () => {
@@ -182,7 +186,7 @@ test('it can pads a given value in front of a given string until the given lengt
     .slice(-3)
     .padStart(_str(email).before('@').length(), '*')
     .append(_str(email).after('@').prepend('@').get())
-    .get()
+    .get();
 
   expect(actual).toEqual('***ttp@example.com');
 });
@@ -204,17 +208,21 @@ describe('it can be cast to string type', () => {
   test('with an array', () => {
     expect(_str().caseString([1, 2, 3])).toEqual('1,2,3');
   });
-  
+
   test('with Not a Number', () => {
     expect(_str().caseString(NaN)).toEqual('NaN');
   });
-  
+
   test('with an arrow function', () => {
     expect(_str().caseString(() => {})).toEqual('() => {}');
   });
-  
+
   test('with a function', () => {
-    expect(_str().caseString(function () { return 'this is a function'; })).toEqual(`function () {
+    expect(
+      _str().caseString(function () {
+        return 'this is a function';
+      }),
+    ).toEqual(`function () {
       return 'this is a function';
     }`);
   });

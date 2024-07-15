@@ -17,17 +17,17 @@ describe('it is empty', () => {
     let a;
     expect(empty(a)).toBeTruthy();
   });
-  
+
   test('with value is null', () => {
     const a = null;
     expect(empty(a)).toBeTruthy();
   });
-  
+
   test('with value is an empty string', () => {
     const a = '';
     expect(empty(a)).toBeTruthy();
   });
-  
+
   test('with value is an empty array', () => {
     const a = [];
     expect(empty(a)).toBeTruthy();
@@ -37,12 +37,12 @@ describe('it is empty', () => {
     const a = 0;
     expect(empty(a)).toBeTruthy();
   });
-  
+
   test('with value is false', () => {
     const a = false;
     expect(empty(a)).toBeTruthy();
   });
-  
+
   test('with value is an empty object', () => {
     const a = { count: () => 0 };
     const b = { isEmpty: () => true };
@@ -57,27 +57,27 @@ describe('it can be get type of', () => {
   test('a string', () => {
     expect(typeOf('')).toEqual('string');
   });
-  
+
   test('a number', () => {
     expect(typeOf(1)).toEqual('number');
   });
-  
+
   test('a boolean', () => {
     expect(typeOf(true)).toEqual('boolean');
   });
-  
+
   test('an array', () => {
     expect(typeOf([])).toEqual('array');
   });
-  
+
   test('an object', () => {
     expect(typeOf({})).toEqual('object');
   });
-  
+
   test('a function', () => {
     expect(typeOf(() => {})).toEqual('function');
   });
-  
+
   test('a constructor', () => {
     class A {}
     expect(typeOf(A)).toEqual('constructor');
