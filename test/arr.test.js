@@ -2,8 +2,8 @@ const { _arr } = require("../dist");
 
 test('it can chunk items of an array', () => {
   const arr = [1, 2, 3, 4, 5, 6];
-  const chunk = _arr(arr).chunk(2).toArray();
-  expect(chunk).toEqual([[1, 2], [3, 4], [5, 6]]);
+  expect(_arr(arr).chunk().toArray()).toEqual([[1], [2], [3], [4], [5], [6]]);
+  expect(_arr(arr).chunk(2).toArray()).toEqual([[1, 2], [3, 4], [5, 6]]);
 });
 
 test('it can get a first item', () => {
@@ -63,10 +63,12 @@ test('it can pluck an array of values from an array', () => {
   ];
   const result = _arr(users).pluck('name').toArray();
   expect(result).toEqual(['John Doe', 'Jane Doe', 'Johnny Doe']);
+  expect(_arr([1, 2, 3]).pluck('name').toArray()).toEqual([]);
 });
 
 describe('it can creates an array of numbers', () => {
   test('with the specified length', () => {
+    expect(_arr().range().toArray()).toEqual([]);
     expect(_arr().range(3).toArray()).toEqual([1, 2, 3]);
   });
   
@@ -84,7 +86,7 @@ describe('it can creates an array of numbers', () => {
 });
 
 test('it can add elements to ensure the length of the array', () => {
-  expect(_arr([1, 2, 3]).supplement(4, null).toArray()).toEqual([1, 2, 3, null]);
+  expect(_arr([1, 2, 3]).supplement(4).toArray()).toEqual([1, 2, 3, null]);
 });
 
 describe('it can filter out duplicate elements to ensure that array elements are unique', () => {
@@ -118,4 +120,8 @@ test('it can count of items', () => {
 test('it can check for emptiness', () => {
   const items = [];
   expect(_arr(items).isEmpty()).toBeTruthy();
+});
+
+test('it can get a raw array value', () => {
+  expect(_arr({ id: 1 }).toArray()).toEqual([1]);
 });

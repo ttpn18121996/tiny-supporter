@@ -57,7 +57,7 @@ export default class Arr {
    * @param {Function} callback Return an array with a single key/value pair.
    * @returns {Object} a new object with the key being the group name and the value being an array of grouped values.
    */
-  public mapToGroups(callback: (value: any, key: number) => [key: string, value: any]): {[key: string]: any} {
+  public mapToGroups(callback: (value: any, key: number) => [key: string, value: any]): { [key: string]: any } {
     return this.value.reduce((pre, cur, index) => {
       const pair = callback(cur, index);
 
@@ -203,9 +203,9 @@ export default class Arr {
    * @returns An array value of this object.
    */
   public toArray(): any[] {
-    return this.value instanceof Object
-      ? Object.values(this.value)
-      : this.value;
+    return Array.isArray(this.value)
+      ? this.value
+      : Object.values(this.value);
   }
 
   /**

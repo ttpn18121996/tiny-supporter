@@ -1,6 +1,6 @@
 {
   "name": "tiny-supporter",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "This is a support library for my personal projects.",
   "repository": {
     "type": "git",
@@ -22,7 +22,7 @@
   "homepage": "https://github.com/ttpn18121996/tiny-supporter",
   "devDependencies": {
     "jest": "^29.7.0",
-    "prettier": "^3.3.2",
+    "prettier": "^3.3.3",
     "typescript": "^5.5.3"
   }
 }

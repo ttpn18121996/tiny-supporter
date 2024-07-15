@@ -72,10 +72,11 @@ export default class Str {
    */
   public beforeLast(search: string): this {
     if (this.value !== '') {
-      this.value = this.value
-        .split(search)
-        .filter((word: string, position: number) => {
-          return position < word.length - 1;
+      const splitValue = this.value.split(search);
+
+      this.value = splitValue
+        .filter((_, position: number) => {
+          return position < splitValue.length - 1;
         })
         .join(search);
     }
