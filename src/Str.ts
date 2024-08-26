@@ -139,7 +139,7 @@ export default class Str {
       }
     } else {
       valueBound = valueBound.replace(/{(\d+)}/g, (match, number) =>
-        typeof args[number] != 'undefined' ? args[number] : match
+        typeof args[number] != 'undefined' ? args[number] : match,
       );
     }
 
@@ -317,7 +317,13 @@ export default class Str {
     }
     let result: string = '';
     for (const word of this.value.split(' ')) {
-      const tmp = result + word.trim().replace(/\r?\n|\r| /g, ' ').replace(/\s\s+/g, ' ') + ' ';
+      const tmp =
+        result +
+        word
+          .trim()
+          .replace(/\r?\n|\r| /g, ' ')
+          .replace(/\s\s+/g, ' ') +
+        ' ';
       if (tmp.length <= length - 4) {
         result = tmp;
       }
@@ -348,9 +354,7 @@ export default class Str {
     const LOWCASE_CHAR_CODES = this.arrayFromLowToHigh(97, 122);
     const NUMBER_CHAR_CODES = this.arrayFromLowToHigh(48, 57);
     const SYMBOL_CHAR_CODES = this.arrayFromLowToHigh(33, 47).concat(
-      this.arrayFromLowToHigh(58, 64).concat(
-        this.arrayFromLowToHigh(91, 96).concat(this.arrayFromLowToHigh(123, 126))
-      )
+      this.arrayFromLowToHigh(58, 64).concat(this.arrayFromLowToHigh(91, 96).concat(this.arrayFromLowToHigh(123, 126))),
     );
     let charCodes = LOWCASE_CHAR_CODES;
     if (options.includeUppercase) charCodes = charCodes.concat(UPPERCASE_CHAR_CODES);

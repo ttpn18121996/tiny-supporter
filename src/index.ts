@@ -31,7 +31,7 @@ export const empty = (value: any): boolean => {
 /**
  * Check the exact data type of a certain value.
  */
-export const typeOf = function (value: any):string {
+export const typeOf = function (value: any): string {
   const result = Object.prototype.toString.call(value).slice(8, -1).toLowerCase();
 
   if (result === 'function' && /^class/i.test(value.toString())) {
@@ -64,7 +64,7 @@ export const queryStringToObject = (value: string): Object => {
     result[key] = value;
   }
   return result;
-}
+};
 
 /**
  * String supporter.

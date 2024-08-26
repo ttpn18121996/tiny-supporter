@@ -1,4 +1,4 @@
-import { typeOf } from ".";
+import { typeOf } from '.';
 
 export default class Arr {
   private value: any[];
@@ -83,9 +83,7 @@ export default class Arr {
    * @returns {Arr}
    */
   public pluck(key: string): this {
-    this.value = this.value
-      .map((item) => (item instanceof Object ? item?.[key] : null))
-      .filter((item) => item);
+    this.value = this.value.map(item => (item instanceof Object ? item?.[key] : null)).filter(item => item);
 
     return this;
   }
@@ -157,13 +155,13 @@ export default class Arr {
 
   /**
    * Convert the array to options of a selection.
-   * @param {string[]} keyValueEntries 
-   * @param {string[]} optionKey 
+   * @param {string[]} keyValueEntries
+   * @param {string[]} optionKey
    * @returns List of options.
    */
   public toSelectOptions(
     keyValueEntries: string[] = ['key', 'value'],
-    optionKey: string[] = ['value', 'label']
+    optionKey: string[] = ['value', 'label'],
   ): { [key: string]: string }[] {
     const result = [];
     for (let i = 0; i < this.value.length; i++) {
@@ -203,9 +201,7 @@ export default class Arr {
    * @returns An array value of this object.
    */
   public toArray(): any[] {
-    return Array.isArray(this.value)
-      ? this.value
-      : Object.values(this.value);
+    return Array.isArray(this.value) ? this.value : Object.values(this.value);
   }
 
   /**
