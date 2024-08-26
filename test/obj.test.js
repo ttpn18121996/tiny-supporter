@@ -94,3 +94,15 @@ test('it can convert an object to a query string with each property', () => {
   };
   expect(_obj.toQueryString(filters)).toEqual('?search%5Bname%5D=Nam&sort_field=id&sort_direction=desc');
 });
+
+test('it can replicate an object', () => {
+  class User {
+    constructor(name) {
+      this.name = name;
+    }
+  }
+  const user1 = new User('Nam');
+  const user2 = _obj.replicate(user1);
+
+  expect(user1).toEqual(user2);
+});

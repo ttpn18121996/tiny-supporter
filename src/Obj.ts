@@ -1,14 +1,14 @@
 import { empty, isset, typeOf } from '.';
 import Str from './Str';
 
-const Obj = {
+class Obj {
   /**
    * Combine a key list and a value list into one object.
    * @param {string[]} keys List of keys to combine.
    * @param {any[]} values List of values to combine.
    * @returns {Object} A new object with specified properties derived from another object.
    */
-  combine(keys: string[], values: any[]): Object {
+  static combine(keys: string[], values: any[]): Object {
     if (keys.length < values.length) {
       for (let i = 0; i < values.length - keys.length; i++) {
         keys.push(`key_${i}`);
@@ -21,7 +21,7 @@ const Obj = {
       }),
       {},
     );
-  },
+  }
 
   /**
    * Get an item from an array using "dot" notation.
@@ -30,7 +30,7 @@ const Obj = {
    * @param {any} defaultValue Default value returned if not found.
    * @returns {any} The value of the specified property.
    */
-  get(obj: { [key: string]: any }, keys: string, defaultValue: any = null): any {
+  static get(obj: { [key: string]: any }, keys: string, defaultValue: any = null): any {
     let result = obj;
     keys.split('.').forEach(key => {
       if (!empty(key)) {
@@ -43,7 +43,7 @@ const Obj = {
       return defaultValue !== undefined ? defaultValue : null;
     }
     return result;
-  },
+  }
 
   /**
    * Set an object item to a given value using "dot" notation.
@@ -51,7 +51,7 @@ const Obj = {
    * @param {string} keys String containing the path to the item, separated by a "dot"
    * @param {any} value Value to set
    */
-  set(obj: { [key: string]: any }, keys: string, value: any) {
+  static set(obj: { [key: string]: any }, keys: string, value: any) {
     const keyList = keys.split('.');
     let currentObj = obj;
     for (let i = 0; i < keyList.length - 1; i++) {
@@ -62,7 +62,7 @@ const Obj = {
       currentObj = currentObj[key];
     }
     currentObj[keyList[keyList.length - 1]] = value;
-  },
+  }
 
   /**
    * Get a subset of the items from the given object.
@@ -70,7 +70,7 @@ const Obj = {
    * @param {string|string[]} list List of keys to get
    * @returns {Object}
    */
-  only(obj: { [key: string]: any } | null, list: string | string[]): Object {
+  static only(obj: { [key: string]: any } | null, list: string | string[]): Object {
     if (!obj) return {};
 
     return Object.keys(obj).reduce((pre, cur: string) => {
@@ -80,7 +80,7 @@ const Obj = {
 
       return { ...pre };
     }, {});
-  },
+  }
 
   /**
    * Get all of the given object except for a specified object of keys.
@@ -88,7 +88,7 @@ const Obj = {
    * @param {string|string[]} list List of keys to ignore
    * @returns {Object}
    */
-  except(obj: { [key: string]: any } | null, list: string | string[]): Object {
+  static except(obj: { [key: string]: any } | null, list: string | string[]): Object {
     if (!obj) return {};
 
     return Object.keys(obj).reduce((pre, cur) => {
@@ -98,7 +98,7 @@ const Obj = {
 
       return { ...pre };
     }, {});
-  },
+  }
 
   /**
    * Deeply check whether the properties exist or not.
@@ -106,7 +106,7 @@ const Obj = {
    * @param {string} list List of keys to ignore
    * @returns {boolean}
    */
-  has(obj: { [key: string]: any }, keys: string): boolean {
+  static has(obj: { [key: string]: any }, keys: string): boolean {
     let result = obj;
     for (const key of keys.split('.')) {
       if (!empty(key)) {
@@ -119,7 +119,7 @@ const Obj = {
     }
 
     return true;
-  },
+  }
 
   /**
    * Run a map over each of the properties in the object.
@@ -127,7 +127,7 @@ const Obj = {
    * @param {Function} callback
    * @returns {any[]}
    */
-  map(obj: { [key: string]: any } | null, callback: (value: any, key: string) => {}): any[] {
+  static map(obj: { [key: string]: any } | null, callback: (value: any, key: string) => {}): any[] {
     const result = [];
 
     if (!obj) return [];
@@ -137,14 +137,14 @@ const Obj = {
     }
 
     return result;
-  },
+  }
 
   /**
    * Convert an object to a query string with each property
    * @param {Object} obj
    * @returns {string}
    */
-  toQueryString(obj: { [key: string]: any } | null): string {
+  static toQueryString(obj: { [key: string]: any } | null): string {
     const urlSearchParams = new URLSearchParams();
     for (const key in obj) {
       if (!isset(obj[key])) {
@@ -168,7 +168,11 @@ const Obj = {
     const result = urlSearchParams.toString();
 
     return empty(result) ? '' : `?${result}`;
-  },
-};
+  }
+
+  static replicate(obj: Object): Object {
+    return Object.assign(Object.create(Object.getPrototypeOf(obj)), obj);
+  }
+}
 
 export default Obj;
