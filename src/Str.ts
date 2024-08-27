@@ -370,6 +370,25 @@ export default class Str {
   }
 
   /**
+   * Randomly shuffles a string.
+   * @returns {Str}
+   */
+  public shuffle(): this {
+    const result = this.value.split('');
+
+    for (let i = this.length() - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const tmp = result[i];
+      result[i] = result[j];
+      result[j] = tmp;
+    }
+
+    this.value = result.join('');
+
+    return this;
+  }
+
+  /**
    * Replace the given value in the given string.
    * @param {RegExp} regexp
    * @param {string} replacer

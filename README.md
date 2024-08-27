@@ -689,6 +689,14 @@ const password = _str().random(20, options);
 console.log(password); // '6!?iR(2)iQW}>UY})owi'
 ```
 
+### \_str().shuffle()
+
+Randomly shuffles a string.
+
+```js
+console.log(_str('abcdefghijklmnopqrstuvwxyz').shuffle().get()); // 'zjmpnleuqfcsakigwhoxrdytbv'
+```
+
 ### \_str().replace()
 
 Replace the given value in the given string.
