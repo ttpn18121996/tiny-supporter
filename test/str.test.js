@@ -138,6 +138,16 @@ describe('it can generate a random string', () => {
   });
 });
 
+test('it can randomly shuffle a string', () => {
+  const origin = 'abcdefghijklmnopqrstuvwxyz';
+  const shuffled1 = _str(origin).shuffle().get();
+  const shuffled2 = _str(origin).shuffle().get();
+
+  expect(shuffled1).not.toEqual(origin);
+  expect(shuffled1).not.toEqual(shuffled2);
+  expect(shuffled2).not.toEqual(origin);
+});
+
 test('it can replace the given value in the given string', () => {
   expect(
     _str('Hello everyone')

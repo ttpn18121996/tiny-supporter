@@ -140,7 +140,7 @@ class Obj {
   }
 
   /**
-   * Convert an object to a query string with each property
+   * Convert an object to a query string with each property.
    * @param {Object} obj
    * @returns {string}
    */
@@ -170,6 +170,11 @@ class Obj {
     return empty(result) ? '' : `?${result}`;
   }
 
+  /**
+   * Clone the object into a new, non-existing instance.
+   * @param {Object} obj
+   * @returns {Object}
+   */
   static replicate(obj: Object): Object {
     return Object.assign(Object.create(Object.getPrototypeOf(obj)), obj);
   }

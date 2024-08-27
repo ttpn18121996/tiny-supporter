@@ -64,6 +64,8 @@ console.log(_obj.combine(keys, values));
 
 ### \_obj.get()
 
+Get an item from an array using "dot" notation.
+
 ```js
 const data = {
   user: {
@@ -79,6 +81,8 @@ console.log(_obj.get(data, 'user.email', () => 'We can pass the callback here.')
 ```
 
 ### \_obj.set()
+
+Set an object item to a given value using "dot" notation.
 
 ```js
 const data = {
@@ -97,6 +101,8 @@ console.log(_obj.get(data, 'user.email')); // 'namttp@example.com'
 
 ### \_obj.only()
 
+Get a subset of the items from the given object.
+
 ```js
 const user = {
   id: 1,
@@ -110,6 +116,8 @@ console.log(_obj.only(user, ['id', 'name'])); // { id: 1, name: 'Trinh Tran Phuo
 ```
 
 ### \_obj.except()
+
+Get all of the given object except for a specified object of keys.
 
 ```js
 const user = {
@@ -140,6 +148,8 @@ console.log(_obj.has(user, 'address.district')); // false
 
 ### \_obj.map()
 
+Run a map over each of the properties in the object.
+
 ```js
 const routes = {
   home: {
@@ -161,10 +171,23 @@ console.log(actions); // ['HomeController@home', 'HomeController@about']
 
 ### \_obj.toQueryString()
 
+Convert an object to a query string with each property.
+
 ```js
 const filters = { search: { name: 'Nam' }, sort_field: 'id', sort_direction: 'desc' };
 
 console.log(_obj.toQueryString(filters)); // '?search[name]=Nam&sort_field=id&sort_direction=desc'
+```
+
+### \_obj.replicate()
+
+Clone the object into a new, non-existing instance.
+
+```js
+const user = new User();
+const clone = _obj.replicate(user);
+
+JSON.stringify(user) === JSON.stringify(clone); // true
 ```
 
 ## \_arr()
@@ -179,6 +202,8 @@ import { _arr } from 'tiny-supporter';
 
 ### \_arr().get()
 
+Gets the array value of this object.
+
 ```js
 console.log(_arr([1, 2, 3, 4, 5, 6]).get()); // [1, 2, 3, 4, 5, 6]
 
@@ -189,6 +214,8 @@ console.log(_arr([1, 2, 3, 4, 5, 6]).toArray()); // [1, 2, 3, 4, 5, 6]
 
 ### \_arr().chunk()
 
+Chunk the array into chunks of the given size.
+
 ```js
 const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
@@ -197,6 +224,8 @@ console.log(_arr(data).chunk(2).get()); // [[1, 2], [3, 4], [5, 6], [7, 8], [9, 
 
 ### \_arr().first()
 
+Returns the first element of the array.
+
 ```js
 const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
@@ -204,6 +233,8 @@ console.log(_arr(data).first()); // 1
 ```
 
 ### \_arr().map()
+
+Run a map over each of the items in the array.
 
 ```js
 const users = [
@@ -221,6 +252,8 @@ console.log(_arr(users).map(user => user.name)); // ['Trinh Tran Phuong Nam', 'J
 ```
 
 ### \_arr().mapToGroups()
+
+Run a grouping map over the items. The callback should return an array with a single key/value pair.
 
 ```js
 const users = [
@@ -249,6 +282,8 @@ console.log(_arr(users).mapToGroups(user => [user.department, user.name]));
 
 ### \_arr().pluck()
 
+Pluck an array of values from an array.
+
 ```js
 const users = [
   {
@@ -266,6 +301,8 @@ console.log(_arr(users).pluck('id').get()); // [1, 2]
 
 ### \_arr().range()
 
+Creates an array of numbers processing from "start" up to "end" (including "end").
+
 ```js
 console.log(_arr().range(10), get()); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 console.log(_arr().range(-10), get()); // [-10, -9, -8, -7, -6, -5, -4, -3, -2, -1]
@@ -277,6 +314,8 @@ console.log(_arr().range(10, 1, 2), get()); // [10, 8, 6, 4, 2]
 
 ### \_arr().supplement()
 
+Add elements to ensure the length of the array.
+
 ```js
 const data = ['a', 'b', 'c'];
 
@@ -286,7 +325,7 @@ console.log(_arr(data).supplement(5, 'additional item'), get()); // ['a', 'b', '
 
 ### \_arr().unique()
 
-Remove duplicate elements in the array.
+Filter out duplicate elements to ensure that array elements are unique.
 
 ```js
 const data = ['a', 'b', 1, 2, 'a', '1'];
@@ -405,11 +444,15 @@ console.log(_arr(status).toSelectOptions());
 
 ### \_arr().count()
 
+Count the element of this array.
+
 ```js
 console.log(_arr([1, 2, 3]).count()); // 3
 ```
 
 ### \_arr().isEmpty()
+
+Check for empty array.
 
 ```js
 console.log(_arr([]).isEmpty()); // true
@@ -428,6 +471,8 @@ import { _str } from 'tiny-supporter';
 
 ### \_str().get()
 
+Get the raw string value.
+
 ```js
 console.log(_str('Lorem ipsum').get()); // 'Lorem ipsum'
 
@@ -444,11 +489,15 @@ console.log(_str('Lorem ipsum').get(6, 11)); // 'ipsum'
 
 ### \_str().length()
 
+Get the length of the string.
+
 ```js
 console.log(_str('Nam').length()); // 3
 ```
 
 ### \_str().after()
+
+Return the remainder of a string after the first occurrence of a given value.
 
 ```js
 console.log(_str('This is my name').after(' ').get()); // 'is my name'
@@ -456,11 +505,15 @@ console.log(_str('This is my name').after(' ').get()); // 'is my name'
 
 ### \_str().afterLast()
 
+Return the remainder of a string after the last occurrence of a given value.
+
 ```js
 console.log(_str('/path/to/filename.extension').afterLast('/').get()); // 'filename.extension'
 ```
 
 ### \_str().before()
+
+Get the portion of a string before the first occurrence of a given value.
 
 ```js
 console.log(_str('This is my name').before(' ').get()); // 'This'
@@ -468,11 +521,15 @@ console.log(_str('This is my name').before(' ').get()); // 'This'
 
 ### \_str().beforeLast()
 
+Get the portion of a string before the last occurrence of a given value.
+
 ```js
 console.log(_str('This is my name').beforeLast(' ').get()); // 'This is my'
 ```
 
 ### \_str().between()
+
+Get the portion of a string between two given values.
 
 ```js
 console.log(_str('This is my name').between('This', 'name').get()); // ' is my '
@@ -480,12 +537,16 @@ console.log(_str('This is my name').between('This', 'name').get()); // ' is my '
 
 ### \_str().betweenFirst()
 
+Get the smallest possible portion of a string between two given values.
+
 ```js
 console.log(_str('[a] bc [d]').betweenFirst('[', ']').get()); // 'a'
 console.log(_str('[a] bc [d]').between('[', ']').get()); // 'a] bc [d'
 ```
 
 ### \_str().bind()
+
+Binds the values ​​to the given string.
 
 ```js
 const user = { user_id: 1, name: 'John Doe' };
@@ -512,11 +573,15 @@ console.log(_str(url).bind([user.user_id, post.post_id]).get()); // '/api/users/
 
 ### \_str().append()
 
+Append the given values to the string.
+
 ```js
 console.log(_str('This is').append(' my name').get()); // 'This is my name'
 ```
 
 ### \_str().prepend()
+
+Prepend the given values to the string.
 
 ```js
 console.log(_str('/api/users').prepend('https://domain.example').get()); // 'https://domain.example/api/users'
@@ -524,11 +589,15 @@ console.log(_str('/api/users').prepend('https://domain.example').get()); // 'htt
 
 ### \_str().title()
 
+Convert the given string to proper case.
+
 ```js
 console.log(_str('trinh tran phuong nam').title().get()); // 'Trinh Tran Phuong Nam'
 ```
 
 ### \_str().studly()
+
+Convert a value to studly caps case.
 
 ```js
 console.log(_str('phuong_nam').studly().get()); // 'PhuongNam'
@@ -536,11 +605,15 @@ console.log(_str('phuong_nam').studly().get()); // 'PhuongNam'
 
 ### \_str().camel()
 
+Convert a value to camel case.
+
 ```js
 console.log(_str('phuong_nam').camel().get()); // 'phuongNam'
 ```
 
 ### \_str().lower()
+
+Convert the given string to lower-case.
 
 ```js
 console.log(_str('NAM').lower().get()); // 'nam'
@@ -548,17 +621,23 @@ console.log(_str('NAM').lower().get()); // 'nam'
 
 ### \_str().upper()
 
+Convert the given string to upper-case.
+
 ```js
 console.log(_str('nam').upper().get()); // 'NAM'
 ```
 
 ### \_str().nonUnicode()
 
+Remove Vietnamese unicode characters from the string.
+
 ```js
 console.log(_str('Trịnh Trần Phương Nam').upper().get()); // 'Trinh Tran Phuong Nam'
 ```
 
 ### \_str().snake()
+
+Convert a string to snake case.
 
 ```js
 console.log(_str('trinhTranPhuongNam').snake().get()); // 'trinh_tran_phuong_nam'
@@ -568,11 +647,15 @@ console.log(_str('trinhTranPhuongNam').snake('-').get()); // 'trinh-tran-phuong-
 
 ### \_str().kebab()
 
+Convert a string to kebab case.
+
 ```js
 console.log(_str('trinhTranPhuongNam').kebab().get()); // 'trinh-tran-phuong-nam'
 ```
 
 ### \_str().escapeHtml()
+
+Escape HTML character.
 
 ```js
 console.log(_str('<p>Hello world</p>').escapeHtml().get()); // '&lt;p&gt;Hello world&lt;/p&gt;'
@@ -580,11 +663,15 @@ console.log(_str('<p>Hello world</p>').escapeHtml().get()); // '&lt;p&gt;Hello w
 
 ### \_str().limit()
 
+Limit the number of characters in a string.
+
 ```js
 console.log(_str('The quick brown fox jumps over the lazy dog').limit(20).get()); // 'The quick brown fox...'
 ```
 
 ### \_str().random()
+
+Generate a more truly "random" string.
 
 ```js
 console.log(_str().random(20)); // 'kvyufaqbosqlcojacnqo'
@@ -602,7 +689,17 @@ const password = _str().random(20, options);
 console.log(password); // '6!?iR(2)iQW}>UY})owi'
 ```
 
+### \_str().shuffle()
+
+Randomly shuffles a string.
+
+```js
+console.log(_str('abcdefghijklmnopqrstuvwxyz').shuffle().get()); // 'zjmpnleuqfcsakigwhoxrdytbv'
+```
+
 ### \_str().replace()
+
+Replace the given value in the given string.
 
 ```js
 console.log(
@@ -614,17 +711,26 @@ console.log(
 
 ### \_str().replaceAt()
 
+Replace the given value in the given string from a specific position.
+
 ```js
 console.log(_str('Hello everyone').replaceAt(2, '!!').get()); // 'He!!o everyone'
 ```
 
 ### \_str().splice()
 
+Split a string from a specific position and then insert the splice into the slice.
+
 ```js
 console.log(_str('Hello everyone!!!').splice(6, 8, '**everyone**').get()); // 'Hello **everyone**!!!'
 ```
 
 ### \_str().slice()
+
+Extracts a section of this string and returns it as a new string.
+The start value is the position taken from and the end value is the position taken to.
+Start = 0 is equivalent to the first character of the string.
+The ending value includes the character at that position.
 
 ```js
 const str = 'The quick brown fox jumps over the lazy dog.';
@@ -637,6 +743,8 @@ console.log(_str(str).slice(-9).upper().slice(0, 8).get()); // 'LAZY DOG'
 ```
 
 ### \_str().padStart()
+
+Pads a given value in front of a given string until the given length is reached.
 
 ```js
 console.log(_str('1').padStart(2, '0').get()); // '01'
@@ -653,12 +761,16 @@ console.log(marked); // '***ttp@example.com'
 
 ### \_str().padEnd()
 
+Pads a given value behind a given string until the given length is reached.
+
 ```js
 console.log(_str('200').padEnd(10, '-').get()); // '200-------'
 console.log(_str('200').padEnd(5)); // '200     '
 ```
 
 ### \_str().caseString()
+
+Casts a value to a string type.
 
 ```js
 console.log(_str().caseString({ id: 1, name: 'Nam' })); // '[object Object]'
@@ -780,6 +892,8 @@ console.log(isJSON('nam')); // false
 ```
 
 ### queryStringToObject()
+
+Convert a query string to an object.
 
 ```js
 console.log(queryStringToObject('?search[name]=Nam&sort_field=id&sort_direction=desc'));
